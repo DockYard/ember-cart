@@ -1,25 +1,41 @@
-# Ember-cart
+# ember-cart #
 
-This README outlines the details of collaborating on this Ember addon.
+[![Build Status](https://secure.travis-ci.org/dockyard/ember-cart.svg?branch=master)](http://travis-ci.org/dockyard/ember-cart)
 
-## Installation
+## About ##
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+Shopping cart primitives for Ember applications
 
-## Running
+## Installing ##
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+`ember install ember-cart`
 
-## Running Tests
+## Looking for help? ##
 
-* `ember test`
-* `ember test --server`
+If it is a bug [please open an issue on GitHub](https://github.com/dockyard/ember-cart/issues).
 
-## Building
+## Usage ##
 
-* `ember build`
+## Authors ##
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+* [Brian Cardarella](http://twitter.com/bcardarella)
+
+[We are very thankful for the many contributors](https://github.com/dockyard/ember-cart/graphs/contributors)
+
+## Versioning ##
+
+This library follows [Semantic Versioning](http://semver.org)
+
+## Want to help? ##
+
+Please do! We are always looking to improve this library. Please see our
+[Contribution Guidelines](https://github.com/dockyard/ember-cart/blob/master/CONTRIBUTING.md)
+on how to properly submit issues and pull requests.
+
+## Legal ##
+
+[DockYard](http://dockyard.com/ember-consulting), Inc &copy; 2015
+
+[@dockyard](http://twitter.com/dockyard)
+
+[Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
