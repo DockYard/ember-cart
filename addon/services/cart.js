@@ -8,7 +8,7 @@ const {
 const get = Ember.get;
 
 export default ArrayProxy.extend({
-  addItem(item) {
+  pushItem(item) {
     let cartItem;
 
     if (item.toCartItem) {
