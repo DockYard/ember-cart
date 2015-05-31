@@ -4,5 +4,11 @@ import layout from '../templates/components/cart-item';
 export default Ember.Component.extend({
   layout: layout,
   tagName: 'li',
-  classNames: ['cart-item']
+  classNames: ['cart-item'],
+
+  actions: {
+    removeItem(item) {
+      this.cart.removeItem(item);
+    }
+  }
 });

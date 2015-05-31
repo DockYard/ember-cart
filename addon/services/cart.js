@@ -28,6 +28,10 @@ export default ArrayProxy.extend({
     cartItem.incrementProperty('quantity');
   },
 
+  removeItem(item) {
+    this.removeObject(item);
+  },
+
   total: computed('@each.total', function() {
     return this.reduce(function(total, item) {
       return total + get(item, 'total');

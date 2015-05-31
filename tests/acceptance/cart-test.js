@@ -152,3 +152,24 @@ test('can display the cart count', function(assert) {
     assert.equal(find('.cart-counter').text().replace(/\s/g, ''), '2');
   });
 });
+
+test('can remove items from the cart', function(assert) {
+  visit('/');
+
+  let button;
+
+  andThen(function() {
+    button = find('ul.items li.item:contains("House") button:contains("Add to cart")');
+    click(button);
+  });
+
+  andThen(function() {
+    assert.find('ul.cart-items li.cart-item:contains("House")', 1);
+    button = find('ul.cart-items li.cart-item:contains("House") button:contains("Remove")');
+    click(button);
+  });
+
+  andThen(function() {
+    assert.find('ul.cart-items li.cart-item:contains("House")', 0);
+  });
+});
