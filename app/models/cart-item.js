@@ -1,0 +1,1 @@
+export { default } from 'ember-cart/models/cart-item';

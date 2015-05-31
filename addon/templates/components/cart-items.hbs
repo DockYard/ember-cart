@@ -1,0 +1,9 @@
+{{#each cart as |item|}}
+  {{cart-item item=item}}
+{{else}}
+<p class="cart-empty">
+  Your cart is empty.
+</p>
+{{/each}}
+
+<span class="cart-total">Total: {{cart.total}}</span>
