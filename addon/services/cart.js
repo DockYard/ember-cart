@@ -38,7 +38,5 @@ export default ArrayProxy.extend({
     }, 0);
   }),
 
-  counter: computed('[]', function() {
-    return get(this, 'length');
-  })
+  counter: computed.alias('length')
 });
