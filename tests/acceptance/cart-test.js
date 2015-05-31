@@ -72,7 +72,7 @@ test('adding the same item twice to the cart', function(assert) {
 
   andThen(function() {
     assert.equal(find('.cart-items .cart-item').length, 1);
-    assert.find('ul.cart-items li.cart-item:contains("House"):contains("Quantity: 2")', 1);
+    assert.find('ul.cart-items li.cart-item:contains("House")', 1);
   });
 });
 
@@ -96,7 +96,7 @@ test('typecast ember model to cart-item', function(assert) {
 
   andThen(function() {
     assert.equal(find('.cart-items .cart-item').length, 1);
-    assert.find('ul.cart-items li.cart-item:contains("Boomer"):contains("Quantity: 2")', 1);
+    assert.find('ul.cart-items li.cart-item:contains("Boomer")', 1);
   });
 });
 
