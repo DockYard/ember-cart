@@ -16,6 +16,81 @@ If it is a bug [please open an issue on GitHub](https://github.com/dockyard/embe
 
 ## Usage ##
 
+ember-cart manages the adding, quantity editing, removal, and eventual
+payment processing of shopping cart items.
+
+The primitives provided are intended to give a boilerplate base to work
+from. Customizing the templates is always a good place to start.
+
+### Components
+
+* `{{cart-items}}`
+
+Provides a list of the shopping cart. Each line item is a {{cart-item}}.
+Shows the total cost of all the items in the cart.
+
+* `{{cart-item}}`
+
+The line-item for each item type in the cart. Adding more than one of
+the same type will increase the quantity. Also handles removal of the
+item from the cart.
+
+* `{{cart-counter}}`
+
+A counter that displays the current number of unique items in the cart.
+
+### `this.cart`
+
+`this.cart` is injected into Controllers and Components. If you want to
+add an item to the cart you can create an action that does
+`this.cart.pushItem`:
+
+```javascript
+actions: {
+  pushItem(item) {
+    this.cart.pushItem(item);
+  }
+}
+```
+
+### Cart Items
+
+You can push POJOs or Ember models into the cart. The basic information
+that an `item` requires is **name** and **cost**. ember-cart will handle
+checking to see if there is already an existing similar item in the
+cart. If there is, the quantity for that item is incremented. If not the
+item is added to the cart.
+
+#### POJOs
+
+POJOs pushed into the cart:
+
+```js
+this.cart.pushItem({
+  name: 'Doggie',
+  cost: 400
+});
+```
+
+### Ember Models
+
+You can push another model into the cart. However you should provide a
+`toCartItem` handler on that model to typecast that model to a CartItem.
+
+```javascript
+// app/models/dog.js
+export DS.Model.extend({
+   toCartItem() {
+      let CartItem = this.container.lookupFactory('model:cart-item');
+
+      return CartItem.create({
+        name: get(this, 'name'),
+        cost: get(this, 'price')
+      });
+   }
+});
+```
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)
