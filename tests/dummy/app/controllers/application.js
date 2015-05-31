@@ -19,7 +19,7 @@ export default Ember.Controller.extend({
 
   actions: {
     addToCart: function(item) {
-      this.cart.addItem(item);
+      this.cart.pushItem(item);
     }
   }
 });
