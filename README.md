@@ -91,6 +91,38 @@ export DS.Model.extend({
 });
 ```
 
+### Persisting to localStorage
+
+If you want to persist the cart to `localStorage` so the items are
+available if the user comes back later you will need to set the
+`localStorage` flag in the Cart service to `true`:
+
+```js
+// app/services/cart.js
+
+import CartService from 'ember-cart/services/cart';
+
+export default CartService.extend({
+  localStorage: true
+});
+```
+
+Please note: if you persist to `localStorage` you will have to handle
+the security around this. For example, if a user signs out of their
+account you will probably want to clear their cart:
+
+```javscript
+actions: {
+  signOut() {
+    // signout handler
+    this.cart.clearItems();
+  }
+}
+```
+
+Make sure to use `clearItems()` and not `clear()` as the former will
+ensure that `localStorage` is properly cleared out.
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)
