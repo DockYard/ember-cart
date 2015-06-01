@@ -1,7 +1,7 @@
 {
   "name": "ember-cart",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Shopping cart primitives for Ember applications",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,11 @@
     "build": "ember build",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/dockyard/ember-cart",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Brian Cardarella",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
