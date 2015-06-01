@@ -4,8 +4,11 @@ import Dog from 'dummy/models/dog';
 
 const get = Ember.get;
 
-moduleFor('ember-cart@service:cart', 'Unit | Service | cart', {
-  needs: ['model:cart-item']
+moduleFor('service:cart', 'Unit | Service | cart', {
+  needs: ['model:cart-item'],
+  afterEeach() {
+    window.localStorage.removeItem('cart');
+  }
 });
 
 test('pushItem - pojo', function(assert) {
@@ -104,4 +107,101 @@ test('clearItems', function(assert) {
   assert.equal(get(cart, 'counter'), 2);
   cart.clearItems();
   assert.equal(get(cart, 'counter'), 0);
+});
+
+test('payload dump', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  cart.pushItem({
+    name: 'Bar',
+    cost: 150
+  });
+
+  let payload = cart.payload();
+
+  assert.deepEqual(payload, [
+    { name: 'Foo', cost: 100, quantity: 2 },
+    { name: 'Bar', cost: 150, quantity: 1 }
+  ]);
+});
+
+test('does not save to localStorage by default', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  assert.equal(window.localStorage.getItem('cart'), null);
+});
+
+test('dumps to localStorage on every write action when flag is set', function(assert) {
+  let cart = this.subject({
+    content: Ember.A(),
+    localStorage: true
+  });
+
+  assert.equal(window.localStorage.getItem('cart'), null, 'cart should start cleared');
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  cart.pushItem({
+    name: 'Bar',
+    cost: 150
+  });
+
+  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+
+  cart.removeItem({
+    name: 'Bar',
+    cost: 150
+  });
+
+  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+
+  cart.clearItems();
+
+  assert.equal(window.localStorage.getItem('cart'), null, 'cart should be cleared out');
+});
+
+test('pushPayload', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  let payload = [
+    { name: 'Foo', cost: 100, quantity: 2 },
+    { name: 'Bar', cost: 150, quantity: 1 }
+  ];
+
+  assert.equal(get(cart, 'total'), 0);
+  assert.equal(get(cart, 'counter'), 0);
+
+  cart.pushPayload(payload);
+
+  assert.equal(get(cart, 'total'), 350);
+  assert.equal(get(cart, 'counter'), 2);
 });
