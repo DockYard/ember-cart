@@ -8,7 +8,7 @@ export default Ember.Object.extend({
 
     return CartItem.create({
       name: get(this, 'name'),
-      cost: get(this, 'cost')
+      cost: get(this, 'price')
     });
   }
 });
