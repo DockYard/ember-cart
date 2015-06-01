@@ -32,6 +32,10 @@ export default ArrayProxy.extend({
     this.removeObject(item);
   },
 
+  clearItems() {
+    this.clear();
+  },
+
   total: computed('@each.total', function() {
     return this.reduce(function(total, item) {
       return total + get(item, 'total');

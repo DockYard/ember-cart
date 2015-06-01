@@ -85,3 +85,23 @@ test('removeItem', function(assert) {
   cart.removeItem(cartItem);
   assert.equal(get(cart, 'counter'), 1);
 });
+
+test('clearItems', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  cart.pushItem({
+    name: 'Bar',
+    cost: 200
+  });
+
+  assert.equal(get(cart, 'counter'), 2);
+  cart.clearItems();
+  assert.equal(get(cart, 'counter'), 0);
+});
