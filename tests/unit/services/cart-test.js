@@ -133,8 +133,8 @@ test('payload dump', function(assert) {
   let payload = cart.payload();
 
   assert.deepEqual(payload, [
-    { increment: true, name: 'Foo', price: 100, quantity: 2 },
-    { increment: true, name: 'Bar', price: 150, quantity: 1 }
+    { guidProps: ['name'], increment: true, name: 'Foo', price: 100, quantity: 2 },
+    { guidProps: ['name'], increment: true, name: 'Bar', price: 150, quantity: 1 }
   ]);
 });
 
@@ -158,7 +158,7 @@ test('pushing an item that cannot be incremented', function(assert) {
   let payload = cart.payload();
 
   assert.deepEqual(payload, [
-    { increment: false, name: 'Foo', price: 100, quantity: 1 }
+    { guidProps: ['name'], increment: false, name: 'Foo', price: 100, quantity: 1 }
   ]);
 });
 
