@@ -25,3 +25,9 @@ test('auto-sets guid based upon guidProp value', function(assert) {
 
   assert.notEqual(get(model, 'guid'), undefined);
 });
+
+test('calling toCartItem returns itself', function(assert) {
+  let model = this.subject();
+
+  assert.equal(model.toCartItem(), model);
+});
