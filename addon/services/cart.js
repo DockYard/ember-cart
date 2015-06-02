@@ -27,7 +27,10 @@ export default ArrayProxy.extend({
     }
 
     cartItem = foundCartItem || cartItem;
-    cartItem.incrementProperty('quantity');
+
+    if (get(cartItem, 'increment') || get(cartItem, 'quantity') === 0) {
+      cartItem.incrementProperty('quantity');
+    }
   },
 
   localStorage: false,
