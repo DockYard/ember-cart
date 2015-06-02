@@ -2,7 +2,9 @@ import Ember from 'ember';
 
 const {
   ArrayProxy,
-  computed
+  computed,
+  observer,
+  on
 } = Ember;
 
 const get = Ember.get;
@@ -26,7 +28,6 @@ export default ArrayProxy.extend({
 
     cartItem = foundCartItem || cartItem;
     cartItem.incrementProperty('quantity');
-    this._dumpToLocalStorage();
   },
 
   localStorage: false,
@@ -49,7 +50,6 @@ export default ArrayProxy.extend({
 
   removeItem(item) {
     this.removeObject(item);
-    this._dumpToLocalStorage();
   },
 
   clearItems() {
@@ -63,11 +63,14 @@ export default ArrayProxy.extend({
     }, 0);
   }),
 
+  isEmpty: computed.empty('content'),
+  isNotEmpty: computed.not('isEmpty'),
+
   counter: computed.alias('length'),
 
-  _dumpToLocalStorage() {
-    if (this.localStorage) {
+  _dumpToLocalStorage: observer('[]', '@each.quantity', on('init', function() {
+    if (get(this, 'isNotEmpty') && this.localStorage) {
       window.localStorage.setItem('cart', JSON.stringify(this.payload()));
     }
-  }
+  }))
 });

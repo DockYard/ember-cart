@@ -3,6 +3,7 @@ import { moduleFor, test } from 'ember-qunit';
 import Dog from 'dummy/models/dog';
 
 const get = Ember.get;
+const set = Ember.set;
 
 moduleFor('service:cart', 'Unit | Service | cart', {
   needs: ['model:cart-item'],
@@ -182,6 +183,12 @@ test('dumps to localStorage on every write action when flag is set', function(as
 
   assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
 
+  let cartItem = get(cart, 'firstObject');
+
+  set(cartItem, 'quantity', 3);
+
+  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+
   cart.clearItems();
 
   assert.equal(window.localStorage.getItem('cart'), null, 'cart should be cleared out');
@@ -204,4 +211,34 @@ test('pushPayload', function(assert) {
 
   assert.equal(get(cart, 'total'), 350);
   assert.equal(get(cart, 'counter'), 2);
+});
+
+test('isEmpty', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  assert.ok(get(cart, 'isEmpty'));
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  assert.ok(!get(cart, 'isEmpty'));
+});
+
+test('isNotEmpty', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  assert.ok(!get(cart, 'isNotEmpty'));
+
+  cart.pushItem({
+    name: 'Foo',
+    cost: 100
+  });
+
+  assert.ok(get(cart, 'isNotEmpty'));
 });
