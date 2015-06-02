@@ -15,11 +15,11 @@ export default Ember.Object.extend({
     return get(this, 'quantity') * get(this, 'price');
   }),
 
-  guidProp: 'name',
+  guidProps: ['name'],
 
-  guid: computed('guidProp', function() {
-    let guidProp = get(this, 'guidProp');
-    return guidFor(get(this, guidProp));
+  guid: computed('guidProps', function() {
+    let guidProps = get(this, 'guidProps').join('-');
+    return guidFor(get(this, guidProps));
   }),
 
   toCartItem() {

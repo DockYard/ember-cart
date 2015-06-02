@@ -17,7 +17,7 @@ test('total is quantity * price', function(assert) {
   assert.equal(get(model, 'total'), 400);
 });
 
-test('auto-sets guid based upon guidProp value', function(assert) {
+test('auto-sets guid based upon guidProps value', function(assert) {
   let modelFactor = this.factory();
   let model = modelFactor.create({
     name: 'test'
