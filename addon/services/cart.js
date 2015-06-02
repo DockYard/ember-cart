@@ -35,7 +35,7 @@ export default ArrayProxy.extend({
 
   localStorage: false,
 
-  cartItemProperties: ['name', 'price', 'quantity'],
+  cartItemProperties: ['name', 'price', 'quantity', 'increment'],
 
   payload() {
     return this.map((item) => {
