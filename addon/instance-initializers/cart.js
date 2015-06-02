@@ -2,14 +2,18 @@ import Ember from 'ember';
 
 export function initialize(appInstance) {
   const CartService = appInstance.container.lookupFactory('service:cart');
+  let payload;
+
+  if (window.localStorage.getItem('cart')) {
+    payload = window.localStorage.getItem('cart');
+    payload = JSON.parse(payload);
+  }
 
   let cart = CartService.create({
     content: Ember.A()
   });
 
-  if (cart.localStorage && window.localStorage.getItem('cart')) {
-    let payload = window.localStorage.getItem('cart');
-    payload = JSON.parse(payload);
+  if (payload && cart.localStorage) {
     cart.pushPayload(payload);
   }
 
