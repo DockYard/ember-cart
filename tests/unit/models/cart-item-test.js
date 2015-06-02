@@ -18,12 +18,40 @@ test('total is quantity * price', function(assert) {
 });
 
 test('auto-sets guid based upon guidProps value', function(assert) {
-  let modelFactor = this.factory();
-  let model = modelFactor.create({
+  let modelFactory = this.factory();
+  let model = modelFactory.create({
     name: 'test'
   });
 
-  assert.notEqual(get(model, 'guid'), undefined);
+  assert.notEqual(get(model, 'guid'), '(undefined)');
+});
+
+test('guid works for multiple guidProps', function(assert) {
+  let modelFactory = this.factory();
+  let model = modelFactory.create({
+    name: 'test',
+    price: 100,
+    guidProps: ['name', 'price']
+  });
+
+  assert.notEqual(get(model, 'guid'), '(undefined)');
+});
+
+test('Normalizes guidProps order', function(assert) {
+  let modelFactory = this.factory();
+  let modelA = modelFactory.create({
+    name: 'test',
+    price: 100,
+    guidProps: ['name', 'price']
+  });
+
+  let modelB = modelFactory.create({
+    name: 'test',
+    price: 100,
+    guidProps: ['price', 'name']
+  });
+
+  assert.equal(get(modelA, 'guid'), get(modelB, 'guid'));
 });
 
 test('calling toCartItem returns itself', function(assert) {

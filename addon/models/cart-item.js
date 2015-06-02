@@ -19,8 +19,11 @@ export default Ember.Object.extend({
   guidProps: ['name'],
 
   guid: computed('guidProps', function() {
-    let guidProps = get(this, 'guidProps').join('-');
-    return guidFor(get(this, guidProps));
+    let guidVal = get(this, 'guidProps').sort().map((prop) => {
+      return get(this, prop);
+    }).join('-');
+
+    return guidFor(guidVal);
   }),
 
   toCartItem() {
