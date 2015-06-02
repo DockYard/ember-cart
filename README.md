@@ -123,6 +123,19 @@ actions: {
 Make sure to use `clearItems()` and not `clear()` as the former will
 ensure that `localStorage` is properly cleared out.
 
+### Avoiding quantity incrementation
+
+You may only allow one of a specific type. To enforce the quantity
+doesn't increment you should set `increment: false` for the Cart Item:
+
+```js
+this.cart.pushItem({
+  name: 'Foo',
+  price: 100,
+  increment: false
+});
+```
+
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)

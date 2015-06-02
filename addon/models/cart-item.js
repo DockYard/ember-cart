@@ -8,6 +8,7 @@ const {
 const get = Ember.get;
 
 export default Ember.Object.extend({
+  increment: true,
   quantity: 0,
   price: 0,
 

@@ -138,6 +138,30 @@ test('payload dump', function(assert) {
   ]);
 });
 
+test('pushing an item that cannot be incremented', function(assert) {
+  let cart = this.subject({
+    content: Ember.A()
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    price: 100,
+    increment: false
+  });
+
+  cart.pushItem({
+    name: 'Foo',
+    price: 100,
+    increment: false
+  });
+
+  let payload = cart.payload();
+
+  assert.deepEqual(payload, [
+    { name: 'Foo', price: 100, quantity: 1 }
+  ]);
+});
+
 test('does not save to localStorage by default', function(assert) {
   let cart = this.subject({
     content: Ember.A()
