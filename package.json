@@ -1,6 +1,6 @@
 {
   "name": "ember-cart",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shopping cart primitives for Ember applications",
   "directories": {
     "doc": "doc",
