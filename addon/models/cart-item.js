@@ -9,10 +9,10 @@ const get = Ember.get;
 
 export default Ember.Object.extend({
   quantity: 0,
-  cost: 0,
+  price: 0,
 
-  total: computed('quantity', 'cost', function() {
-    return get(this, 'quantity') * get(this, 'cost');
+  total: computed('quantity', 'price', function() {
+    return get(this, 'quantity') * get(this, 'price');
   }),
 
   guidProp: 'name',

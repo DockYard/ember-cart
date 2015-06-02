@@ -6,12 +6,12 @@ moduleFor('model:cart-item', 'Unit | Model | cart item');
 const get = Ember.get;
 const set = Ember.set;
 
-test('total is quantity * cost', function(assert) {
+test('total is quantity * price', function(assert) {
   let model = this.subject();
 
   assert.equal(get(model, 'total'), 0);
 
-  set(model, 'cost', 40);
+  set(model, 'price', 40);
   set(model, 'quantity', 10);
 
   assert.equal(get(model, 'total'), 400);
