@@ -7,7 +7,7 @@ const set = Ember.set;
 
 moduleFor('service:cart', 'Unit | Service | cart', {
   needs: ['model:cart-item'],
-  afterEeach() {
+  beforeEeach() {
     window.localStorage.removeItem('cart');
   }
 });
@@ -157,7 +157,7 @@ test('dumps to localStorage on every write action when flag is set', function(as
     localStorage: true
   });
 
-  assert.equal(window.localStorage.getItem('cart'), null, 'cart should start cleared');
+  assert.equal(window.localStorage.getItem('cart'), '[]', 'cart should start cleared');
 
   cart.pushItem({
     name: 'Foo',
@@ -191,7 +191,7 @@ test('dumps to localStorage on every write action when flag is set', function(as
 
   cart.clearItems();
 
-  assert.equal(window.localStorage.getItem('cart'), null, 'cart should be cleared out');
+  assert.equal(window.localStorage.getItem('cart'), '[]', 'cart should be cleared out');
 });
 
 test('pushPayload', function(assert) {

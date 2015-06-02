@@ -54,7 +54,6 @@ export default ArrayProxy.extend({
 
   clearItems() {
     this.clear();
-    window.localStorage.removeItem('cart');
   },
 
   total: computed('@each.total', function() {
@@ -69,7 +68,7 @@ export default ArrayProxy.extend({
   counter: computed.alias('length'),
 
   _dumpToLocalStorage: observer('[]', '@each.quantity', on('init', function() {
-    if (get(this, 'isNotEmpty') && this.localStorage) {
+    if (this.localStorage) {
       window.localStorage.setItem('cart', JSON.stringify(this.payload()));
     }
   }))
