@@ -32,7 +32,7 @@ test('it works', function(assert) {
 });
 
 test('does not instantiate cart with localStorage if flag is false', function(assert) {
-  window.localStorage.setItem('cart', JSON.stringify([{name: 'Foo', cost: 100, quantity: 1}]));
+  window.localStorage.setItem('cart', JSON.stringify([{name: 'Foo', price: 100, quantity: 1}]));
 
   initialize(appInstance);
 
@@ -42,7 +42,7 @@ test('does not instantiate cart with localStorage if flag is false', function(as
 });
 
 test('does instantiate cart with localStorage if flag is true', function(assert) {
-  window.localStorage.setItem('cart', JSON.stringify([{name: 'Foo', cost: 100, quantity: 1}]));
+  window.localStorage.setItem('cart', JSON.stringify([{name: 'Foo', price: 100, quantity: 1}]));
 
   let CartService = appInstance.container.lookupFactory('service:cart');
 

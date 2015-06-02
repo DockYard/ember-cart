@@ -21,7 +21,7 @@ test('pushItem - pojo', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   assert.equal(get(cart, 'counter'), 1);
@@ -32,7 +32,7 @@ test('pushItem - pojo', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   assert.equal(get(cart, 'counter'), 1);
@@ -48,7 +48,7 @@ test('pushItem - model', function(assert) {
   let dog = Dog.create({
     container: get(cart, 'container'),
     name: 'Boomer',
-    price: 150
+    cost: 150
   });
 
   assert.equal(get(cart, 'counter'), 0);
@@ -75,12 +75,12 @@ test('removeItem', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Bar',
-    cost: 200
+    price: 200
   });
 
   let cartItem = get(cart, 'firstObject');
@@ -97,12 +97,12 @@ test('clearItems', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Bar',
-    cost: 200
+    price: 200
   });
 
   assert.equal(get(cart, 'counter'), 2);
@@ -117,24 +117,24 @@ test('payload dump', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Bar',
-    cost: 150
+    price: 150
   });
 
   let payload = cart.payload();
 
   assert.deepEqual(payload, [
-    { name: 'Foo', cost: 100, quantity: 2 },
-    { name: 'Bar', cost: 150, quantity: 1 }
+    { name: 'Foo', price: 100, quantity: 2 },
+    { name: 'Bar', price: 150, quantity: 1 }
   ]);
 });
 
@@ -145,7 +145,7 @@ test('does not save to localStorage by default', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   assert.equal(window.localStorage.getItem('cart'), null);
@@ -161,24 +161,24 @@ test('dumps to localStorage on every write action when flag is set', function(as
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   cart.pushItem({
     name: 'Bar',
-    cost: 150
+    price: 150
   });
 
   assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
 
   cart.removeItem({
     name: 'Bar',
-    cost: 150
+    price: 150
   });
 
   assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
@@ -200,8 +200,8 @@ test('pushPayload', function(assert) {
   });
 
   let payload = [
-    { name: 'Foo', cost: 100, quantity: 2 },
-    { name: 'Bar', cost: 150, quantity: 1 }
+    { name: 'Foo', price: 100, quantity: 2 },
+    { name: 'Bar', price: 150, quantity: 1 }
   ];
 
   assert.equal(get(cart, 'total'), 0);
@@ -222,7 +222,7 @@ test('isEmpty', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   assert.ok(!get(cart, 'isEmpty'));
@@ -237,7 +237,7 @@ test('isNotEmpty', function(assert) {
 
   cart.pushItem({
     name: 'Foo',
-    cost: 100
+    price: 100
   });
 
   assert.ok(get(cart, 'isNotEmpty'));

@@ -100,7 +100,7 @@ test('typecast ember model to cart-item', function(assert) {
   });
 });
 
-test('display total cost', function(assert) {
+test('display total price', function(assert) {
   visit('/');
 
   let button;
