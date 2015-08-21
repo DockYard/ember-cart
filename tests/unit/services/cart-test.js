@@ -7,7 +7,7 @@ const set = Ember.set;
 
 moduleFor('service:cart', 'Unit | Service | cart', {
   needs: ['model:cart-item'],
-  beforeEeach() {
+  beforeEach() {
     window.localStorage.removeItem('cart');
   }
 });
@@ -25,7 +25,7 @@ test('pushItem - pojo', function(assert) {
   });
 
   assert.equal(get(cart, 'counter'), 1);
-  
+
   let cartItem = get(cart, 'firstObject');
 
   assert.equal(get(cartItem, 'quantity'), 1);
@@ -56,7 +56,7 @@ test('pushItem - model', function(assert) {
   cart.pushItem(dog);
 
   assert.equal(get(cart, 'counter'), 1);
-  
+
   let cartItem = get(cart, 'firstObject');
 
   assert.equal(get(cartItem, 'quantity'), 1);
@@ -130,7 +130,7 @@ test('payload dump', function(assert) {
     price: 150
   });
 
-  let payload = cart.payload();
+  let payload = get(cart, 'payload');
 
   assert.deepEqual(payload, [
     { guidProps: ['name'], increment: true, name: 'Foo', price: 100, quantity: 2 },
@@ -155,7 +155,7 @@ test('pushing an item that cannot be incremented', function(assert) {
     increment: false
   });
 
-  let payload = cart.payload();
+  let payload = get(cart, 'payload');
 
   assert.deepEqual(payload, [
     { guidProps: ['name'], increment: false, name: 'Foo', price: 100, quantity: 1 }
@@ -198,20 +198,20 @@ test('dumps to localStorage on every write action when flag is set', function(as
     price: 150
   });
 
-  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+  assert.equal(JSON.stringify(get(cart, 'payload')), window.localStorage.getItem('cart'));
 
   cart.removeItem({
     name: 'Bar',
     price: 150
   });
 
-  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+  assert.equal(JSON.stringify(get(cart, 'payload')), window.localStorage.getItem('cart'));
 
   let cartItem = get(cart, 'firstObject');
 
   set(cartItem, 'quantity', 3);
 
-  assert.equal(window.localStorage.getItem('cart'), JSON.stringify(cart.payload()));
+  assert.equal(JSON.stringify(get(cart, 'payload')), window.localStorage.getItem('cart'));
 
   cart.clearItems();
 
