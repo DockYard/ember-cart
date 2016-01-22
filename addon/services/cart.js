@@ -9,7 +9,7 @@ const {
 
 const get = Ember.get;
 
-export default ArrayProxy.extend({
+const CartService = ArrayProxy.extend({
   pushItem(item) {
     let cartItem;
 
@@ -76,3 +76,9 @@ export default ArrayProxy.extend({
     }
   }))
 });
+
+CartService.reopenClass({
+  isServiceFactory: true
+});
+
+export default CartService;
