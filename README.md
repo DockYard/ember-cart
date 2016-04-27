@@ -1,6 +1,6 @@
 # ember-cart #
 
-[![Build Status](https://secure.travis-ci.org/dockyard/ember-cart.svg?branch=master)](http://travis-ci.org/dockyard/ember-cart)
+[![Build Status](https://travis-ci.org/DockYard/ember-cart.svg?branch=master)](https://travis-ci.org/DockYard/ember-cart)
 
 ## About ##
 
