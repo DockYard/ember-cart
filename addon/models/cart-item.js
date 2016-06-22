@@ -1,13 +1,13 @@
 import Ember from 'ember';
 
 const {
+  get,
   computed,
-  guidFor
+  guidFor,
+  Object: EmberObject
 } = Ember;
 
-const get = Ember.get;
-
-export default Ember.Object.extend({
+export default EmberObject.extend({
   increment: true,
   quantity: 0,
   price: 0,

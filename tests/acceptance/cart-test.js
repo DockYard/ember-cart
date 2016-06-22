@@ -1,19 +1,14 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from 'dummy/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'dummy/tests/helpers/module-for-acceptance';
 import { assertionInjector, assertionCleanup } from '../assertions';
 
-var application;
-
-module('Acceptance | cart', {
-  beforeEach: function() {
-    application = startApp();
-    assertionInjector(application);
+moduleForAcceptance('Acceptance | cart', {
+  beforeEach() {
+    assertionInjector(this.application);
   },
 
-  afterEach: function() {
+  afterEach() {
     assertionCleanup();
-    Ember.run(application, 'destroy');
   }
 });
 
@@ -124,7 +119,6 @@ test('can display the cart count', function(assert) {
   visit('/');
 
   let button;
-  let cartCounter;
 
   andThen(function() {
     assert.equal(find('.cart-counter').text().replace(/\s/g, ''), '0');

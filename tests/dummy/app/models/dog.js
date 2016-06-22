@@ -1,10 +1,14 @@
 import Ember from 'ember';
 
-const get = Ember.get;
+const {
+  get,
+  Object: EmberObject,
+  getOwner
+} = Ember;
 
-export default Ember.Object.extend({
+export default EmberObject.extend({
   toCartItem() {
-    let CartItem = this.container.lookupFactory('model:cart-item');
+    let CartItem = getOwner(this)._lookupFactory('model:cart-item');
 
     return CartItem.create({
       name: get(this, 'name'),

@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 
-const set = Ember.set;
+const {
+  set
+} = Ember;
 
 moduleForComponent('cart-counter', 'Unit | Component | cart counter', {
   // Specify the other units that are required for this test

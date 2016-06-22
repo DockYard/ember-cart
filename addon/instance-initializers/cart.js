@@ -1,7 +1,12 @@
 import Ember from 'ember';
 
+const {
+  A
+} = Ember;
+
 export function initialize(appInstance) {
-  const CartService = appInstance.container.lookupFactory('service:cart');
+  let CartService = appInstance._lookupFactory('service:cart');
+
   let payload;
 
   if (window.localStorage.getItem('cart')) {
@@ -10,22 +15,19 @@ export function initialize(appInstance) {
   }
 
   let cart = CartService.create({
-    content: Ember.A()
+    content: A()
   });
 
   if (payload && cart.localStorage) {
     cart.pushPayload(payload);
   }
 
-  let registry = appInstance.registry;
-
-  registry.register('cart:main', cart, { instantiate: false });
-  registry.injection('controller', 'cart', 'cart:main');
-  registry.injection('component', 'cart', 'cart:main');
-  registry.injection('service:cart', 'container', 'container:main');
+  appInstance.register('cart:main', cart, { instantiate: false });
+  appInstance.inject('controller', 'cart', 'cart:main');
+  appInstance.inject('component', 'cart', 'cart:main');
 }
 
 export default {
   name: 'cart',
-  initialize: initialize
+  initialize
 };

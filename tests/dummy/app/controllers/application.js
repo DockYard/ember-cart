@@ -1,24 +1,25 @@
 import Ember from 'ember';
 
 const {
-  on
+  on,
+  getOwner,
+  set,
+  A,
+  Controller
 } = Ember;
 
-const get = Ember.get;
-const set = Ember.set;
-
-export default Ember.Controller.extend({
+export default Controller.extend({
   setItems: on('init', function() {
-    let items = Ember.A();
+    let items = A();
 
     items.pushObject({ name: 'House', price: 44.5 });
-    items.pushObject(this.container.lookupFactory('model:dog').create({name: 'Boomer', cost: 2500}));
+    items.pushObject(getOwner(this)._lookupFactory('model:dog').create({ name: 'Boomer', cost: 2500 }));
 
     set(this, 'items', items);
   }),
 
   actions: {
-    addToCart: function(item) {
+    addToCart(item) {
       this.cart.pushItem(item);
     }
   }

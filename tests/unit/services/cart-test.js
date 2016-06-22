@@ -2,8 +2,13 @@ import Ember from 'ember';
 import { moduleFor, test } from 'ember-qunit';
 import Dog from 'dummy/models/dog';
 
-const get = Ember.get;
-const set = Ember.set;
+const {
+  get,
+  getOwner,
+  set,
+  setOwner,
+  A
+} = Ember;
 
 moduleFor('service:cart', 'Unit | Service | cart', {
   needs: ['model:cart-item'],
@@ -14,7 +19,7 @@ moduleFor('service:cart', 'Unit | Service | cart', {
 
 test('pushItem - pojo', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   assert.equal(get(cart, 'counter'), 0);
@@ -25,7 +30,7 @@ test('pushItem - pojo', function(assert) {
   });
 
   assert.equal(get(cart, 'counter'), 1);
-  
+
   let cartItem = get(cart, 'firstObject');
 
   assert.equal(get(cartItem, 'quantity'), 1);
@@ -42,21 +47,24 @@ test('pushItem - pojo', function(assert) {
 
 test('pushItem - model', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
+  let owner = getOwner(cart);
+
   let dog = Dog.create({
-    container: get(cart, 'container'),
     name: 'Boomer',
     cost: 150
   });
+
+  setOwner(dog, owner);
 
   assert.equal(get(cart, 'counter'), 0);
 
   cart.pushItem(dog);
 
   assert.equal(get(cart, 'counter'), 1);
-  
+
   let cartItem = get(cart, 'firstObject');
 
   assert.equal(get(cartItem, 'quantity'), 1);
@@ -70,7 +78,7 @@ test('pushItem - model', function(assert) {
 
 test('removeItem', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   cart.pushItem({
@@ -92,7 +100,7 @@ test('removeItem', function(assert) {
 
 test('clearItems', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   cart.pushItem({
@@ -112,7 +120,7 @@ test('clearItems', function(assert) {
 
 test('payload dump', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   cart.pushItem({
@@ -140,7 +148,7 @@ test('payload dump', function(assert) {
 
 test('pushing an item that cannot be incremented', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   cart.pushItem({
@@ -164,7 +172,7 @@ test('pushing an item that cannot be incremented', function(assert) {
 
 test('does not save to localStorage by default', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   cart.pushItem({
@@ -177,7 +185,7 @@ test('does not save to localStorage by default', function(assert) {
 
 test('dumps to localStorage on every write action when flag is set', function(assert) {
   let cart = this.subject({
-    content: Ember.A(),
+    content: A(),
     localStorage: true
   });
 
@@ -220,7 +228,7 @@ test('dumps to localStorage on every write action when flag is set', function(as
 
 test('pushPayload', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   let payload = [
@@ -239,7 +247,7 @@ test('pushPayload', function(assert) {
 
 test('isEmpty', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   assert.ok(get(cart, 'isEmpty'));
@@ -254,7 +262,7 @@ test('isEmpty', function(assert) {
 
 test('isNotEmpty', function(assert) {
   let cart = this.subject({
-    content: Ember.A()
+    content: A()
   });
 
   assert.ok(!get(cart, 'isNotEmpty'));

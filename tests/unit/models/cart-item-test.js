@@ -3,8 +3,10 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('model:cart-item', 'Unit | Model | cart item');
 
-const get = Ember.get;
-const set = Ember.set;
+const {
+  get,
+  set
+} = Ember;
 
 test('total is quantity * price', function(assert) {
   let model = this.subject();

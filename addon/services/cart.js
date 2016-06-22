@@ -1,23 +1,24 @@
 import Ember from 'ember';
 
 const {
+  get,
+  getOwner,
   ArrayProxy,
   computed,
   observer,
   on
 } = Ember;
 
-const get = Ember.get;
+const Service = ArrayProxy.extend({
+  localStorage: false,
 
-export default ArrayProxy.extend({
   pushItem(item) {
     let cartItem;
 
     if (item.toCartItem) {
       cartItem = item.toCartItem();
     } else {
-      const CartItem = this.container.lookupFactory('model:cart-item');
-      cartItem = CartItem.create(item);
+      cartItem = getOwner(this)._lookupFactory('model:cart-item').create(item);
     }
 
     let foundCartItem = this.findBy('guid', get(cartItem, 'guid'));
@@ -33,8 +34,6 @@ export default ArrayProxy.extend({
     }
   },
 
-  localStorage: false,
-
   cartItemProperties: ['name', 'price', 'quantity', 'increment', 'guidProps'],
 
   payload() {
@@ -44,10 +43,9 @@ export default ArrayProxy.extend({
   },
 
   pushPayload(payload) {
-    const CartItem = this.container.lookupFactory('model:cart-item');
-
     payload.forEach((item) => {
-      this.pushObject(CartItem.create(item));
+      let cartItem = getOwner(this)._lookupFactory('model:cart-item').create(item);
+      this.pushObject(cartItem);
     });
   },
 
@@ -76,3 +74,9 @@ export default ArrayProxy.extend({
     }
   }))
 });
+
+Service.reopenClass({
+  isServiceFactory: true
+});
+
+export default Service;

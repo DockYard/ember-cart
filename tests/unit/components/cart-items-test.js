@@ -1,7 +1,11 @@
 import Ember from 'ember';
 import { moduleForComponent, test } from 'ember-qunit';
 
-const set = Ember.set;
+const {
+  set,
+  A,
+  ArrayProxy
+} = Ember;
 
 moduleForComponent('cart-items', 'Unit | Component | cart items', {
   // Specify the other units that are required for this test
@@ -13,7 +17,7 @@ test('it renders', function(assert) {
   assert.expect(2);
 
   // Creates the component instance
-  var component = this.subject();
+  let component = this.subject();
   assert.equal(component._state, 'preRender');
 
   // Renders the component to the page
@@ -24,8 +28,8 @@ test('it renders', function(assert) {
 test('adds the class "empty" when the cart is empty', function(assert) {
   let component = this.subject();
 
-  let cart = Ember.ArrayProxy.create({
-    content: Ember.A(),
+  let cart = ArrayProxy.create({
+    content: A(),
     counter: 0
   });
 
@@ -38,8 +42,8 @@ test('adds the class "empty" when the cart is empty', function(assert) {
 test('removes the class "empty" when the cart is not empty', function(assert) {
   let component = this.subject();
 
-  let cart = Ember.ArrayProxy.create({
-    content: Ember.A(),
+  let cart = ArrayProxy.create({
+    content: A(),
     counter: 1
   });
 
