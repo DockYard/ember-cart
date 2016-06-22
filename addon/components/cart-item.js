@@ -1,8 +1,12 @@
 import Ember from 'ember';
 import layout from '../templates/components/cart-item';
 
-export default Ember.Component.extend({
-  layout: layout,
+const {
+  Component
+} = Ember;
+
+export default Component.extend({
+  layout,
   tagName: 'li',
   classNames: ['cart-item'],
 

@@ -2,11 +2,12 @@ import Ember from 'ember';
 import layout from '../templates/components/cart-counter';
 
 const {
-  computed
+  computed,
+  Component
 } = Ember;
 
-export default Ember.Component.extend({
-  layout: layout,
+export default Component.extend({
+  layout,
   tagName: 'span',
   classNames: ['cart-counter'],
   classNameBindings: ['isEmpty::cart-empty'],
