@@ -56,7 +56,7 @@ actions: {
 ### Cart Items
 
 You can push POJOs or Ember models into the cart. The basic information
-that an `item` requires is **name** and **cost**. ember-cart will handle
+that an `item` requires is **name** and **price**. ember-cart will handle
 checking to see if there is already an existing similar item in the
 cart. If there is, the quantity for that item is incremented. If not the
 item is added to the cart.
@@ -68,7 +68,7 @@ POJOs pushed into the cart:
 ```js
 this.cart.pushItem({
   name: 'Doggie',
-  cost: 400
+  price: 400
 });
 ```
 
@@ -85,7 +85,7 @@ export DS.Model.extend({
 
       return CartItem.create({
         name: get(this, 'name'),
-        cost: get(this, 'price')
+        price: get(this, 'price')
       });
    }
 });
