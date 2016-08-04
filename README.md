@@ -79,15 +79,23 @@ You can push another model into the cart. However you should provide a
 
 ```javascript
 // app/models/dog.js
-export DS.Model.extend({
-   toCartItem() {
-      let CartItem = this.container.lookupFactory('model:cart-item');
+import Ember from 'ember';
 
-      return CartItem.create({
-        name: get(this, 'name'),
-        cost: get(this, 'price')
-      });
-   }
+const {
+  get,
+  Object: EmberObject,
+  getOwner
+} = Ember;
+
+export default EmberObject.extend({
+  toCartItem() {
+    let CartItem = getOwner(this)._lookupFactory('model:cart-item');
+
+    return CartItem.create({
+      name: get(this, 'name'),
+      price: get(this, 'cost')
+    });
+  }
 });
 ```
 
