@@ -1,4 +1,3 @@
-// jscs:disable
 import { module } from 'qunit';
 import Ember from 'ember';
 import startApp from '../helpers/start-app';
@@ -12,12 +11,12 @@ export default function(name, options = {}) {
       this.application = startApp();
 
       if (options.beforeEach) {
-        return options.beforeEach.apply(this, arguments);
+        return options.beforeEach.call(this, ...arguments);
       }
     },
 
     afterEach() {
-      let afterEach = options.afterEach && options.afterEach.apply(this, arguments);
+      let afterEach = options.afterEach && options.afterEach.call(this, ...arguments);
       return Promise.resolve(afterEach).then(() => destroyApp(this.application));
     }
   });
