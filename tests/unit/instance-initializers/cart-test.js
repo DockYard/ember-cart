@@ -1,20 +1,15 @@
-import Ember from 'ember';
+import Application from '@ember/application';
+import { run } from '@ember/runloop';
+import { isEmpty } from '@ember/utils';
 import { module, test } from 'qunit';
 import { initialize } from '../../../instance-initializers/cart';
 import destroyApp from '../../helpers/destroy-app';
-import testResolver from 'ember-test-helpers/test-resolver';
-
-const {
-  isEmpty,
-  run,
-  Application
-} = Ember;
+import resolver from '../../helpers/resolver';
 
 module('Unit | Instance Initializer | cart', {
   beforeEach() {
     run(() => {
       let application = Application.create();
-      let resolver = testResolver.getResolver();
       this.appInstance = application.buildInstance();
       this.appInstance.register('service:cart', resolver.resolve(resolver.normalize('service:cart')));
       this.appInstance.register('model:cart-item', resolver.resolve(resolver.normalize('model:cart-item')));
@@ -23,7 +18,7 @@ module('Unit | Instance Initializer | cart', {
   },
   afterEach() {
     window.localStorage.removeItem('cart');
-    let CartService = this.appInstance._lookupFactory('service:cart');
+    let CartService = this.appInstance.resolveRegistration('service:cart');
     CartService.reopen({
       localStorage: false
     });
@@ -50,7 +45,7 @@ test('does not instantiate cart with localStorage if flag is false', function(as
 test('does instantiate cart with localStorage if flag is true', function(assert) {
   window.localStorage.setItem('cart', JSON.stringify([{ name: 'Foo', price: 100, quantity: 1 }]));
 
-  let CartService = this.appInstance._lookupFactory('service:cart');
+  let CartService = this.appInstance.resolveRegistration('service:cart');
 
   CartService.reopen({
     localStorage: true

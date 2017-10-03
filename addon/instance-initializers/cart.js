@@ -1,11 +1,12 @@
 import Ember from 'ember';
+import { setOwner } from '@ember/application';
 
 const {
   A
 } = Ember;
 
 export function initialize(appInstance) {
-  let CartService = appInstance._lookupFactory('service:cart');
+  let CartService = appInstance.resolveRegistration('service:cart');
 
   let payload;
 
@@ -17,6 +18,8 @@ export function initialize(appInstance) {
   let cart = CartService.create({
     content: A()
   });
+
+  setOwner(cart, appInstance);
 
   if (payload && cart.localStorage) {
     cart.pushPayload(payload);

@@ -18,7 +18,7 @@ const Service = ArrayProxy.extend({
     if (item.toCartItem) {
       cartItem = item.toCartItem();
     } else {
-      cartItem = getOwner(this)._lookupFactory('model:cart-item').create(item);
+      cartItem = getOwner(this).resolveRegistration('model:cart-item').create(item);
     }
 
     let foundCartItem = this.findBy('guid', get(cartItem, 'guid'));
@@ -44,7 +44,7 @@ const Service = ArrayProxy.extend({
 
   pushPayload(payload) {
     payload.forEach((item) => {
-      let cartItem = getOwner(this)._lookupFactory('model:cart-item').create(item);
+      let cartItem = getOwner(this).resolveRegistration('model:cart-item').create(item);
       this.pushObject(cartItem);
     });
   },

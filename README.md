@@ -91,7 +91,7 @@ const {
 
 export default EmberObject.extend({
   toCartItem() {
-    let CartItem = getOwner(this)._lookupFactory('model:cart-item');
+    let CartItem = getOwner(this).resolveRegistration('model:cart-item');
 
     return CartItem.create({
       name: get(this, 'name'),
